@@ -1,0 +1,36 @@
+[package]
+name = "big-hash"
+version = "0.1.0"
+authors = ["Phoenix Kahlo <kahlo.phoenix@gmail.com>"]
+edition = "2018"
+description = "Compute MD5, SHA256, and SHA512 hashes of data through the std::hash API."
+readme = "README.md"
+repository = "https://github.com/gretchenfrage/big-hash"
+license-file = "LICENSE.md"
+
+[features]
+default = ["hash-md5", "hash-sha256", "hash-sha512"]
+
+# feature to add the `hash_md5` function
+hash-md5 = ["md5"]
+# feature to add the `hash_sha256` function
+hash-sha256 = ["hmac-sha256"]
+# feature to add the `hash_sha512` function
+hash-sha512 = ["hmac-sha512"]
+
+[dependencies.md5]
+version = "0.7"
+optional = true
+default-features = false
+
+[dependencies.hmac-sha256]
+version = "0.1"
+optional = true
+
+[dependencies.hmac-sha512]
+version = "0.1.6"
+optional = true
+
+[[example]]
+name = "example"
+required-features = ["hash-md5", "hash-sha256", "hash-sha512"]

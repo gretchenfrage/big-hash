@@ -1,6 +1,6 @@
 [package]
 name = "big-hash"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Phoenix Kahlo <kahlo.phoenix@gmail.com>"]
 edition = "2018"
 description = "Compute MD5, SHA256, and SHA512 hashes of data through the std::hash API."

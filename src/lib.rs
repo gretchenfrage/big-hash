@@ -32,6 +32,10 @@ pub fn md5_hash<H: Hash>(data: &H) -> [u8; 16] {
     hasher.digest()
 }
 
+#[cfg(feature = "hash-md5")]
+#[doc(opaque)]
+pub use md5_hasher::Md5Hasher;
+
 /// Compute an SHA256 hash through the `core::hash` API.
 #[cfg(feature = "hash-sha256")]
 pub fn sha256_hash<H: Hash>(data: &H) -> [u8; 32] {
@@ -40,6 +44,10 @@ pub fn sha256_hash<H: Hash>(data: &H) -> [u8; 32] {
     hasher.finalize()
 }
 
+#[cfg(feature = "hash-sha256")]
+#[doc(opaque)]
+pub use sha256_hasher::Sha256Hasher;
+
 /// Compute an SHA512 hash through the `core::hash` API.
 #[cfg(feature = "hash-sha512")]
 pub fn sha512_hash<H: Hash>(data: &H) -> [u8; 64] {
@@ -47,6 +55,10 @@ pub fn sha512_hash<H: Hash>(data: &H) -> [u8; 64] {
     data.hash(&mut hasher);
     hasher.finalize()
 }
+
+#[cfg(feature = "hash-sha512")]
+#[doc(opaque)]
+pub use sha512_hasher::Sha512Hasher;
 
 /// Input size must be a multiple of 8.
 fn bytes_xor_u64(slice: &[u8]) -> u64 {
@@ -67,6 +79,7 @@ mod md5_hasher {
     extern crate md5;
     use super::*;
 
+    /// Glue between `core::hash` and `md5`.
     #[derive(Clone)]
     pub struct Md5Hasher(md5::Context);
 
@@ -99,6 +112,7 @@ mod sha256_hasher {
     use super::*;
     use hmac_sha256 as sha256;
 
+    /// Glue between `core::hash` and `hmac_sha256`.
     #[derive(Copy, Clone)]
     pub struct Sha256Hasher(sha256::Hash);
 
@@ -131,6 +145,7 @@ mod sha512_hasher {
     use super::*;
     use hmac_sha512 as sha512;
 
+    /// Glue between `core::hash` and `hmac_sha512`.
     #[derive(Copy, Clone)]
     pub struct Sha512Hasher(sha512::Hash);
 
